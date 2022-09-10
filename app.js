@@ -157,6 +157,27 @@ app.get("/all-movies", (req, res) => {
 })
 
 
+//***********ADDED SINGLE MOVIE ROUTE************//
+app.get("/single-movie/:titleToFind", (req, res) => {
+	const titleToFind = req.params.titleToFind
+
+	const foundMovieIndex = favoriteMovieList.findIindex((movie)=>{
+
+		if (movie.title === titleToFind) {
+			console.log("Movie Titles Match!")
+			return true
+		} else {
+			console.log("Movie Titles Do Not Match")
+			return false
+		}
+	})
+
+	const foundMovie = favoriteMovieList(foundMovieIndex);
+
+res.json(foundMovie)
+})
+
+
 //***********UPDATE************//
 // Find a movie and update the title
 app.put("/update-movie/:titleToUpdate", (req, res) => {
