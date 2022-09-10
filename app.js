@@ -157,66 +157,70 @@ app.get("/all-movies", (req, res) => {
 })
 
 
-// Update
-
+//***********UPDATE************//
 // Find a movie and update the title
 app.put("/update-movie/:titleToUpdate", (req, res) => {
-
+	
 	console.log("PUT to /update-movie")
 
-	// We have a route parameter /:titleToUpdate to specify which movie in our list to update
-	// The value of this route parameter will come through the req.params object
-	console.log("req params ", req.params)
+// We have a route parameter /:titleToUpdate to specify which movie in our list to update
+// The value of this route parameter will come through the req.params object
+    console.log("req params ", req.params)
 
 	const titleToUpdate = req.params.titleToUpdate
+    
+	const originalMovieIndex = favoriteMovieList.findIndex((movie)=>{ 
+	console.log("movie", movie)
+	console.log("titletoUpdate", req.params.titleToUpdate)
+	console.log("condition", movie.title === req.params.titleToUpdate)
 
-	// We need to find the original movie in our movie array so that we can keep the original values that we don't want to modify. Hint: We need to use .findIndex()
-	const originalMovieIndex = favoriteMovieList.findIndex((movie)=>{
-		console.log("movie ", movie)
-		console.log("titleToUpdate ", req.params.titleToUpdate)
-		console.log("condition ", movie.title === req.params.titleToUpdate)
+	// return movie.title === req.params.titleToUpdate
 
-		if (movie.title === req.params.titleToUpdate) {
-			console.log("Movie Titles Match!")
-			return true
-		} else {
-			console.log("Movie Titles Do Not Match")
-			return false
-		}
-	})
+	if (movie.title === req.params.titleToUpdate){
+		console.log("Movie Titles Do Not Match!")
+		return true
+	} else {
+		console.log("Movie Titles Do Not Match")
+		return false
+	}
+})
 
-	console.log("originalMovieIndex ", originalMovieIndex)
+console.log("originalMovieIndex", originalMovieIndex)
 
-	const originalMovie = favoriteMovieList[originalMovieIndex];
+const originalMovie = favoriteMovieList[originalMovieIndex];
 
-	console.log("originalMovie ", originalMovie)
+console.log("originalMovie", originalMovie)
 
-	const updatedMovie = {
-		title: originalMovie.title,
-		starRating: originalMovie.starRating,
-		isRecommended: originalMovie.isRecommended,
+    const updatedMovie = {
+        title: originalMovie.title,
+        starRating: originalMovie.starRating,
+        isRecommended: originalMovie.isRecommended,
 		createdAt: originalMovie.createdAt,
 		lastModified: new Date()
-	}
+      }
 
-	console.log("updatedMovie Before Update ", updatedMovie)
+	  console.log("updatedMovie Before Update" , updatedMovie)
 
-	if (req.body.title !== undefined) {
-		updatedMovie.title = req.body.title
-	}
+    if (req.body.title !== undefined) {
+        updatedMovie.title = req.body.title
+      }
+	
 
 	if (req.body.starRating !== undefined) {
-		updatedMovie.starRating = req.body.starRating
-	}
+        updatedMovie.starRating = req.body.starRating
+    }
 
 	if (req.body.isRecommended !== undefined) {
-		updatedMovie.isRecommended = req.body.isRecommended
-	}
+        updatedMovie.isRecommended = req.body.isRecommended}
+	
 
-	console.log("updatedMovie After Update ", updatedMovie)
+
+	console.log("updatedMovie After Update", updatedMovie)
+
+	
 
 	// Overwrite the value of favoriteMovieList at indexOfMovie with newTitle
-	// favoriteMovieList[indexOfMovie] = newTitle
+	// /favoriteMovieList[indexOfMovie] = newTitle
 	favoriteMovieList[originalMovieIndex] = updatedMovie;
 
 	console.log("favoriteMovieList after ", favoriteMovieList)
@@ -225,6 +229,9 @@ app.put("/update-movie/:titleToUpdate", (req, res) => {
 		success: true
 	})
 })
+
+
+
 
 // Delete
 
