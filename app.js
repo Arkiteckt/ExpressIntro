@@ -233,29 +233,27 @@ console.log("originalMovie", originalMovie)
 
 
 
-// Delete
-
+//***********DELETE************//
 app.delete("/delete-movie/:titleToDelete", (req, res)=>{
 
-	console.log("DELETE to /delete-movie")
+    console.log("DELETE to /delete-movie")
 
 	// This is the title of the movie we want to find in the movies array and delete
-	// const titleToDelete = req.params.titleToDelete
 
 	// Find the index of the movie in the movie list
 	const indexOfMovie = favoriteMovieList.findIndex((movie)=>{
 
-		console.log(movie.title + " === " + req.params.titleToDelete)
+console.log(movie.title + " === " + req.params.titleToDelete)
 
-		if (movie.title === req.params.titleToDelete) {
-			console.log("Movie Titles Match!")
-			return true
-		} else {
-			console.log("Movie Titles Do Not Match")
-			return false
-		}
-	})
-	console.log(indexOfMovie)
+	if (movie.title === req.params.titleToDelete) {
+		console.log("Movie Titles Match!")
+		return true
+	} else {
+		console.log("Movie Titles Do Not Match")
+		return false
+	}
+})
+console.log(indexOfMovie)
 
 	if (indexOfMovie < 0) {
 		// If the movie was not found in the array, respond with hasBeenDeleted: false and return so that no code underneath executes
@@ -274,6 +272,8 @@ app.delete("/delete-movie/:titleToDelete", (req, res)=>{
 		hasBeenDeleted: true
 	})
 })
+
+
 
 /* app.get("/list-movies", (req, res)=> {
 	const movieString = favoriteMovieList.join("; ")
