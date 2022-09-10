@@ -147,35 +147,15 @@ app.post("/new-movie", (req, res) => {
 
 
 //***********READ************//
-
 // Get all the movies in our movie list
 app.get("/all-movies", (req, res) => {
-
 	console.log("GET to /all-movies")
 
-	//res.send only sends strings. From now on, we want to use res.json to send JSON objects or JS arrays
+//res.send only sends strings. From now on, we want to use res.json to send JSON objects or JS arrays
 
-	res.json(favoriteMovieList)
+    res.json(favoriteMovieList)
 })
 
-app.get("/single-movie/:titleToFind", (req, res) => {
-	const titleToFind = req.params.titleToFind
-
-	const foundMovieIndex = favoriteMovieList.findIndex((movie)=>{
-
-		if (movie.title === titleToFind) {
-			console.log("Movie Titles Match!")
-			return true
-		} else {
-			console.log("Movie Titles Do Not Match")
-			return false
-		}
-	})
-
-	const foundMovie = favoriteMovieList[foundMovieIndex];
-
-	res.json(foundMovie)
-})
 
 // Update
 
